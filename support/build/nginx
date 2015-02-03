@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Build Path: /app/nginx/
+
+OUT_PREFIX=$1
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eux
+
+DEFAULT_VERSION="1.6.2"
+dep_version=${VERSION:-$DEFAULT_VERSION}
+dep_dirname=nginx-${dep_version}
+dep_archive_name=${dep_dirname}.tar.gz
+dep_url=http://nginx.org/download/${dep_archive_name}
+
+echo "-----> Building Nginx ${dep_version}..."
+echo "-----> OUT PREFIX ${OUT_PREFIX}..."
+
+curl -L ${dep_url} | tar xz
+curl -L http://zlib.net/zlib-1.2.8.tar.gz | tar xz -C ${dep_dirname}
+curl -L http://sourceforge.net/projects/pcre/files/pcre/8.34/pcre-8.34.tar.gz | tar xz -C ${dep_dirname}
+
+pushd ${dep_dirname}
+ETC=${OUT_PREFIX}/etc
+VAR=${OUT_PREFIX}/var
+./configure \
+    --prefix=${OUT_PREFIX} \
+    --with-http_gzip_static_module \
+    --with-http_stub_status_module \
+    --with-http_realip_module \
+    --without-mail_pop3_module \
+    --without-mail_imap_module \
+    --without-mail_smtp_module \
+    --without-http_ssi_module \
+    --without-http_userid_module \
+    --without-http_auth_basic_module \
+    --without-http_split_clients_module \
+    --without-http_fastcgi_module \
+    --without-http_uwsgi_module \
+    --without-http_scgi_module \
+    --without-http_memcached_module \
+    --without-http_limit_conn_module \
+    --without-http_limit_req_module \
+    --without-http_empty_gif_module \
+    --with-pcre=pcre-8.34 \
+    --with-zlib=zlib-1.2.8
+make -s -j 9
+make install -s
+popd
+
+echo "-----> Done."
