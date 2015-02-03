@@ -4,7 +4,7 @@
 
 The folder `support/build` contains [Bob](http://github.com/kennethreitz/bob-builder) build scripts for nginx and dependencies.
 
-To get started with it, create a Python app (*Bob* is a Python application) on Heroku inside a clone of this repository, and set your S3 config vars:
+To get started with it, create a Python app (*Bob* is a Python application) on Heroku (https://devcenter.heroku.com/articles/getting-started-with-python-o) inside a clone of this repository, and set your S3 config vars:
 
 ```term
 $ heroku create --buildpack https://github.com/heroku/heroku-buildpack-python
