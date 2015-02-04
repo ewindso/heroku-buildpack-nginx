@@ -15,7 +15,6 @@ dep_archive_name=${dep_dirname}.tar.gz
 dep_url=http://nginx.org/download/${dep_archive_name}
 
 echo "-----> Building Nginx ${dep_version}..."
-echo "-----> OUT PREFIX ${OUT_PREFIX}..."
 
 curl -L ${dep_url} | tar xz
 curl -L http://zlib.net/zlib-1.2.8.tar.gz | tar xz -C ${dep_dirname}
