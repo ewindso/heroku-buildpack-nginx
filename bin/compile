@@ -9,7 +9,7 @@ CACHE_DIR=$2
 VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)
 
 # unpack nginx for stack
-tar xzf "nginx-$STACK" -C $VENDORED_NGINX
+tar xzf "bin/nginx-$STACK.tar.gz" -C $VENDORED_NGINX
 
 mkdir -p "$BUILD_DIR/bin/"
 cp "$VENDORED_NGINX/sbin/nginx" "$BUILD_DIR/bin/nginx"
