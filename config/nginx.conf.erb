@@ -2,12 +2,6 @@ daemon off;
 #Heroku dynos have at least 4 cores.
 worker_processes auto;
 
-# this section is needed to proxy web-socket connections
-map $http_upgrade $connection_upgrade {
-  default upgrade;
-  ''      close;
-}
-
 events {
   use epoll;
   accept_mutex on;
@@ -20,6 +14,12 @@ http {
   gzip_min_length 512;
 
   server_tokens off;
+
+  # this section is needed to proxy web-socket connections
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+  }
 
   log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
   access_log logs/nginx/access.log l2met;
