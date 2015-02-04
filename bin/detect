@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
 # bin/detect <build-dir>
-
-if [ -f "$1/config/nginx.conf.erb" ]; then
-  echo "Nginx" && exit 0
-else
-  echo "Nginx conf not found" && exit 1
-fi
+echo 'nginx-buildpack'
+exit 0

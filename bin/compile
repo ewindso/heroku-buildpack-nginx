@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+# vendor directories
+VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)
+
+# unpack nginx for stack
+tar xzf "bin/nginx-$STACK" -C $VENDORED_NGINX
+
+mkdir -p "$BUILD_DIR/bin/"
+cp "$VENDORED_NGINX/sbin/nginx" "$BUILD_DIR/bin/nginx"
+nginx_version=$(./$BUILD_DIR/bin/nginx -V 2>&1 | head -1 | awk '{ print $NF }')
+echo "-----> nginx-buildpack: Installed ${nginx_version} to app/bin"
+cp bin/start-nginx "$BUILD_DIR/bin/"
+echo '-----> nginx-buildpack: Added start-nginx to app/bin'
+
+mkdir -p "$BUILD_DIR/config"
+
+cp config/mime.types "$BUILD_DIR/config/"
+echo '-----> nginx-buildpack: Default mime.types copied to app/config/'
+
+if [[ ! -f $BUILD_DIR/config/nginx.conf.erb ]]; then
+  cp config/nginx.conf.erb "$BUILD_DIR/config/"
+  echo '-----> nginx-buildpack: Default config copied to app/config.'
+else
+  echo '-----> nginx-buildpack: Custom config found in app/config.'
+fi
+exit 0
