@@ -2,8 +2,6 @@ daemon off;
 #Heroku dynos have at least 4 cores.
 worker_processes auto;
 
-server_tokens off; # for security-by-obscurity: stop displaying nginx version
-
 # this section is needed to proxy web-socket connections
 map $http_upgrade $connection_upgrade {
   default upgrade;
