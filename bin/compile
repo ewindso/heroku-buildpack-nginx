@@ -23,8 +23,8 @@ mkdir -p "$BUILD_DIR/config"
 cp config/mime.types "$BUILD_DIR/config/"
 echo '-----> nginx-buildpack: Default mime.types copied to app/config/'
 
-if [[ ! -f $BUILD_DIR/config/nginx.conf.erb ]]; then
-  cp config/nginx.conf.erb "$BUILD_DIR/config/"
+if [[ ! -f $BUILD_DIR/config/nginx.conf ]]; then
+  cp config/nginx.conf "$BUILD_DIR/config/"
   echo '-----> nginx-buildpack: Default config copied to app/config.'
 else
   echo '-----> nginx-buildpack: Custom config found in app/config.'
