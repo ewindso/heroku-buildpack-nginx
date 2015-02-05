@@ -24,9 +24,6 @@ curl -L http://sourceforge.net/projects/pcre/files/pcre/8.34/pcre-8.34.tar.gz | 
 pushd ${dep_dirname}
 ETC=${OUT_PREFIX}/etc
 VAR=${OUT_PREFIX}/var
-
-LD_LIBRARY_PATH=/usr/lib/perl/5.18/CORE
-
 ./configure \
     --prefix=${OUT_PREFIX} \
     --with-http_gzip_static_module \
@@ -47,8 +44,6 @@ LD_LIBRARY_PATH=/usr/lib/perl/5.18/CORE
     --without-http_limit_conn_module \
     --without-http_limit_req_module \
     --without-http_empty_gif_module \
-    --with-http_perl_module \
-    --with-perl=/usr/bin/perl \
     --with-pcre=pcre-8.34 \
     --with-zlib=zlib-1.2.8
 make -s -j 9
