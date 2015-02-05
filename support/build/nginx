@@ -17,6 +17,7 @@ dep_url=http://nginx.org/download/${dep_archive_name}
 echo "-----> Building Nginx ${dep_version}..."
 
 curl -L ${dep_url} | tar xz
+
 curl -L http://zlib.net/zlib-1.2.8.tar.gz | tar xz -C ${dep_dirname}
 curl -L http://sourceforge.net/projects/pcre/files/pcre/8.34/pcre-8.34.tar.gz | tar xz -C ${dep_dirname}
 
@@ -29,6 +30,7 @@ VAR=${OUT_PREFIX}/var
     --with-http_stub_status_module \
     --with-http_realip_module \
     --with-http_perl_module \
+    --with-perl=/usr/bin/perl \
     --without-mail_pop3_module \
     --without-mail_imap_module \
     --without-mail_smtp_module \
