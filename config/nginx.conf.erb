@@ -35,7 +35,7 @@ http {
     keepalive_timeout 5;
 
     # override in app project for custom nginx rules
-    include nginx.custom.conf
+    include nginx.custom.conf;
 
     location / {
       proxy_pass http://127.0.0.1:8080;
